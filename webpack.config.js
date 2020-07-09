@@ -15,12 +15,16 @@ const jsLoaders = () => {
             loader: 'babel-loader',
             options: {
                 presets: ['@babel/preset-env'],
+                plugins: ['@babel/plugin-proposal-class-properties'],
+
             },
         },
     ];
+
     if (isDev) {
         loaders.push('eslint-loader');
     }
+    return loaders;
 };
 
 module.exports = {
@@ -31,7 +35,7 @@ module.exports = {
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
     },
-    devtool: isDev ? 'source-map': false,
+    devtool: isDev ? 'source-map' : false,
     devServer: {
         port: 3000,
         hot: isDev,
@@ -54,8 +58,10 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                {from: path.resolve(__dirname, 'src/favicon.ico'),
-                    to: path.resolve(__dirname, 'dist')},
+                {
+                    from: path.resolve(__dirname, 'src/favicon.ico'),
+                    to: path.resolve(__dirname, 'dist')
+                },
             ],
         }),
         new MiniCssExtractPlugin({
@@ -81,8 +87,8 @@ module.exports = {
 
             },
             {
-                test: /\.m?js$/,
-                exclude: /(node_modules|bower_components)/,
+                test: /\.js$/,
+                exclude: /node_modules/,
                 use: jsLoaders(),
             },
         ],
