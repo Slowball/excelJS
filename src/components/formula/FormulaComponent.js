@@ -18,7 +18,11 @@ export class FormulaComponent extends ExcelComponent {
         `;
     }
 
-    onImput(event) {
+    onInput(event) {
         console.log('Formula: onInput', event)
+    }
+
+    onClick() {
+        console.log('click')
     }
 }
